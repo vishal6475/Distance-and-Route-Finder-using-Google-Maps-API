@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>Distance and Route Finder</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
 
@@ -25,16 +22,27 @@
     <p>Select Travel mode:</p>
     <input type="radio" id="travel-driving" name="travel-mode" value="DRIVING" checked>
       <label for="DRIVING">Driving</label>
-      <input type="radio" id="travel-walking" name="travel-mode" value="WALKING">
+    <input type="radio" id="travel-walking" name="travel-mode" value="WALKING">
       <label for="WALKING">Walking</label>
-      <input type="radio" id="travel-bicycling" name="travel-mode" value="BICYCLING">
+    <input type="radio" id="travel-bicycling" name="travel-mode" value="BICYCLING">
       <label for="BICYCLING">Bicycling</label>
-      <input type="radio" id="travel-transit" name="travel-mode" value="TRANSIT">
+    <input type="radio" id="travel-transit" name="travel-mode" value="TRANSIT">
       <label for="TRANSIT">Transit</label>
   </div>
 
   <div>
     <button id="show-route-btn">Show Route</button>
+  </div>
+
+  <div>
+    <div style="display:flex; flex-direction:row">
+      <div>Distance (in kms): </div>
+      <div id="response_distance"></div>      
+    </div>
+    <div style="display:flex; flex-direction:row">
+      <div>Travel time: </div>
+      <div id="response_time"></div>      
+    </div>
   </div>
 
   <div id="googleMap" style="width:100%;height:400px;margin-top: 50px;"></div>
@@ -102,12 +110,14 @@
     };
 
     distanceService.getDistanceMatrix(distanceRequest).then((response) => {
-    // put response
-
-    var distanceDetails = JSON.stringify(response)
-    console.log(distanceDetails)
-    console.log(distanceDetails.originAddresses)      
-     
+      if (response !== null){
+        if (response.rows[0].elements[0].status === 'OK'){
+          console.log(response.rows[0].elements[0].distance)   
+          console.log(response.rows[0].elements[0].duration) 
+          document.getElementById('response_distance').innerText = response.rows[0].elements[0].distance.text
+          document.getElementById('response_time').innerText = response.rows[0].elements[0].duration.text
+        }   
+      }  
     })
     .catch((error) => {
       console.log(error);
