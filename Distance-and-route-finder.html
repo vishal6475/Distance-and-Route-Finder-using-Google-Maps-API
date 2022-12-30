@@ -49,6 +49,8 @@
 
   var directionsService = new google.maps.DirectionsService();
   var directionsRenderer = new google.maps.DirectionsRenderer();
+  var distanceService = new google.maps.DistanceMatrixService();
+
   var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
   directionsRenderer.setMap(map);
   
@@ -90,6 +92,30 @@
         directionsRenderer.setDirections(result);
       }
     });
+
+    const distanceRequest = {
+      origins: [start],
+      destinations: [end],
+      travelMode: selectedMode,
+      avoidHighways: false,
+      avoidTolls: false,
+    };
+
+    distanceService.getDistanceMatrix(distanceRequest).then((response) => {
+    // put response
+
+    var distanceDetails = JSON.stringify(response)
+    console.log(distanceDetails)
+    console.log(distanceDetails.originAddresses)      
+     
+    })
+    .catch((error) => {
+      console.log(error);
+    });;
+
+
+
+
 
   })
 
