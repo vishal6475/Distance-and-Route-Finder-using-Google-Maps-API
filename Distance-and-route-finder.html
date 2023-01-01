@@ -5,68 +5,95 @@
   </head>
   <body style="margin:0;height:100%;min-height:100vh;">
     <div style="display:flex; flex-direction:row;height:100%;min-height:100vh;">
-      <div style="width:15%;background-color: lightgray;">
+      <div style="width:15%;background-color: #18191a;">
         
       </div>
 
       <div style="width:70%;padding: 10px;">
-        <h1 style="display:flex; flex-direction:row; justify-content:center;">Distance and Route Finder using Google Maps APIs</h1>
+        <h1 style="display:flex; justify-content:center;">Distance and Route Finder using Google Maps APIs</h1>
 
-        <div style="display:flex; flex-direction:row; justify-content:space-between; width:40%; margin-left: 30%;">
-          <div>
-            <div style="background-color: gray;width: 100px;color: beige;">Origin address</div>
-            <input type="text" id="origin-add" placeholder="Enter origin address" value="84-86 Albert Road, Strathfield NSW, Australia" /> 
+        <div style=" width:50%; margin-left: 25%;">
+          <div style="display:flex; flex-direction:row;width:100%; ">
+            <div style="background-color: gray;min-width: 135px;color: beige; padding: 2px; margin-right: 5px;">Origin address:</div>
+            <div style="width:100%">
+              <input type="text" style="width:100%" id="origin-add" placeholder="Enter origin address" /> 
+            </div>
           </div>
-          <div>
-            <div style="background-color: gray;width: 130px;border-radius: 3px;">Destination address</div>
-            <input type="text" id="dest-add" placeholder="Enter destination address" value="Central Station, Pitt Street, Haymarket NSW, Australia" /> 
+          <div style="display:flex; flex-direction:row; margin-top: 4px;">
+            <div style="background-color: gray; min-width: 135px; color: beige; padding: 2px; margin-right: 5px;">Destination address:</div>
+            <div style="width:100%">
+              <input type="text" id="dest-add" style="width:100%" placeholder="Enter destination address" /> 
+            </div>
           </div>
+        </div>
+
+        <div style="display:flex; flex-direction:row; justify-content: space-between; margin: 30px 0 10px 28%; width: 44%;">
+          <div>Select Travel mode:</div>
+          <div style="display:flex; flex-direction:row;">
+            <div>
+              <input type="radio" id="travel-driving" name="travel-mode" value="DRIVING" style="cursor: pointer;" checked>
+            </div>
+            <div>
+              <label for="DRIVING">Driving</label>
+            </div>
+            <div>
+              <input type="radio" id="travel-walking" name="travel-mode" value="WALKING" style="cursor: pointer;">
+            </div>
+            <div>
+              <label for="WALKING">Walking</label>
+            </div>
+            <div>
+              <input type="radio" id="travel-bicycling" name="travel-mode" value="BICYCLING" style="cursor: pointer;">
+            </div>
+            <div>
+              <label for="BICYCLING">Bicycling</label>
+            </div>
+            <div>
+              <input type="radio" id="travel-transit" name="travel-mode" value="TRANSIT" style="cursor: pointer;">
+            </div>
+            <div>
+              <label for="TRANSIT">Transit</label>
+            </div>
+          </div>          
         </div>
 
         <div>
-          <p>Select Travel mode:</p>
-          <input type="radio" id="travel-driving" name="travel-mode" value="DRIVING" checked>
-            <label for="DRIVING">Driving</label>
-          <input type="radio" id="travel-walking" name="travel-mode" value="WALKING">
-            <label for="WALKING">Walking</label>
-          <input type="radio" id="travel-bicycling" name="travel-mode" value="BICYCLING">
-            <label for="BICYCLING">Bicycling</label>
-          <input type="radio" id="travel-transit" name="travel-mode" value="TRANSIT">
-            <label for="TRANSIT">Transit</label>
+          <button id="show-route-btn" style="background-color:darkcyan; border: 0cm; font-weight: 780; border-radius: 5px; height:30px; cursor: pointer; width:30%; margin-left: 35%;">Show Route Details</button>
         </div>
 
-        <div>
-          <button id="show-route-btn" style="background-color:darkcyan; border: 0cm; font-weight: 780; border-radius: 5px; height:30px; cursor: pointer; width:300px">Show Route Details</button>
-        </div>
+        <div id="show-details-box" style="border: 0.02cm; border-color:grey;border-style: solid; border-radius: 2px; width:60%; margin-top: 20px; margin-left: 20%; padding:0;">
 
-        <div id="show-details-box" style="border: 0.01; border-color:grey;border-style: solid; border-radius: 3px; width:60%; margin-left: 20%;">
-
-          <div style="display:flex; flex-direction:row; justify-content:space-between;">
-            <div style="width:20%; background-color:cornflowerblue;color: beige; padding: 4px 0 0 6px;">From:</div>
+          <div style="display:flex; flex-direction:row; justify-content:space-between; border: 0;">
+            <div style="width:20%; background-color:#0091BF;color: beige; padding: 4px 0 0 6px;">From:</div>
             <div id="from_place" style="font-weight: bold; padding: 4px 6px 0 0;"></div>
           </div>
 
           <div style="display:flex; flex-direction:row;justify-content:space-between;">            
-            <div style="width:20%; background-color:cornflowerblue;color: beige; padding-left: 6px;">To:</div>
+            <div style="width:20%; background-color:#0091BF;color: beige; padding-left: 6px;">To:</div>
             <div id="to_place" style="font-weight: bold; padding-right: 6px;"></div>
           </div>
 
           <div style="display:flex; flex-direction:row;justify-content:space-between;">
-            <div style="width:20%; background-color:cornflowerblue;color: beige; padding-left: 6px;">Distance (in kms): </div>
+            <div style="width:20%; background-color:#0091BF;color: beige; padding-left: 6px;">Distance (in kms): </div>
             <div id="response_distance" style="font-weight: bold; padding-right: 6px;"></div>    
           </div>
 
           <div style="display:flex; flex-direction:row;justify-content:space-between;">
-            <div style="width:20%; background-color:cornflowerblue;color: beige; padding: 0 0 4px 6px;">Travel time: </div>
+            <div style="width:20%; background-color:#0091BF;color: beige; padding: 0 0 4px 6px;">Travel time: </div>
             <div id="response_time" style="font-weight: bold; padding: 0 6px 4px 0;"></div>   
           </div>
 
         </div>
 
-        <div id="googleMap" style="width:100%;height:400px;margin-top: 50px;"></div>
+        <div id="no-route" style="margin: 20px 0 20px 0">
+          <div style="color: #8B0000; display:flex; justify-content:center;font-size: xx-large;">No Route Found!</div>
+          <div style="display:flex; justify-content:center; font-size: larger;">Try searching again for different addresses.</div>
+        </div>
+
+        <div id="googleMap" style="width:100%;height:400px;margin-top: 10px;"></div>
       </div>
 
-      <div style="width:15%;background-color: lightgray;">
+      <div style="width:15%;background-color: #18191a;">
 
       </div>
     </div>
@@ -76,6 +103,7 @@
     var showDetails = 0;
 
     document.getElementById('show-details-box').style.display = 'none';  
+    document.getElementById('no-route').style.display = 'none';  
 
     const initMap = () => {
       var mapProp= {
@@ -131,9 +159,11 @@
             console.log(result)
             directionsRenderer.setDirections(result);
             document.getElementById('show-details-box').style.display = 'block';  
+            document.getElementById('no-route').style.display = 'none';  
           } else {          
             directionsRenderer.setDirections({routes: []});
             document.getElementById('show-details-box').style.display = 'none';  
+            document.getElementById('no-route').style.display = 'block';  
           }
         });
 
@@ -168,6 +198,9 @@
     }
 
     window.initMap = initMap;
+    // Future enhancements:
+    // Add departure time
+    // Add intermediate locations
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFXE4uCIRzYbp6-4SkxOiggphLOW0U9FM&libraries=places&callback=initMap"></script>
