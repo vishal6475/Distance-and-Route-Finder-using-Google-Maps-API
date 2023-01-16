@@ -2,7 +2,7 @@
 
 Setup instructions:
 1. Just clone this repo to your laptop to download the files.
-2. Use your google API key and update it at the bottom of html file as shown below. My provided API key may also work if I haven't regenrated it on Google.
+2. Use your google API key and update it at the bottom of html file as shown below. My provided API key may also work if I haven't regenerated it on Google.
 <script src="https://maps.googleapis.com/maps/api/js?key={ENTER KEY HERE}&libraries=places&callback=initMap"></script>
 3. Open the html file and start enjoying this route finder service.
 
